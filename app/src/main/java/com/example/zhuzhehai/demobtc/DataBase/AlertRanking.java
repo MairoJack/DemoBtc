@@ -4,10 +4,10 @@ package com.example.zhuzhehai.demobtc.DataBase;
  * Created by zhuzhehai on 10/23/17.
  */
 
-public class AlterRanking {
+public class AlertRanking {
 
     //table name
-    public static final String TABLE_NAME = "Tickets";
+    public static final String TABLE_NAME = "AlertRanking";
 
     //column info
     public static final String T_ID = "id";
@@ -20,7 +20,7 @@ public class AlterRanking {
             + " ("
             + T_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + TIMESTAMP + " VARCHAR(255) NOT NULL,"
-            + T_last + " VARCHAR(320) NOT NULL"
+            + T_last + " VARCHAR(320) NOT NULL,"
             + T_Change + " VARCHAR(320) NOT NULL"
             + ");";
 }

@@ -11,8 +11,8 @@ public class BitconInfo {
     public String high;
     public String low;
     public Dates open;
-    public Averages average;
+    public Averages averages;
     public Changes changes;
     public String timestamp;
-    public String displayTime;
+    public String display_timestamp;
 }

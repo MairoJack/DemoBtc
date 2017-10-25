@@ -11,8 +11,8 @@ import android.util.Log;
  */
 
 public class DB extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 100;
-    private static final String DATABASE_NAME = "wildlife.db";
+    private static final int DATABASE_VERSION = 10;
+    private static final String DATABASE_NAME = "bitconDatae.db";
     private Context context;
 
     public DB(Context context) {
@@ -30,18 +30,16 @@ public class DB extends SQLiteOpenHelper {
         }
 
         try {
-            db.execSQL(AlterRanking.CREATE_TABLE_ALERTRANKING);
+            db.execSQL(AlertRanking.CREATE_TABLE_ALERTRANKING);
         }catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int old_version, int new_version) {
         db.execSQL("DROP TABLE IF EXISTS " + Tickets.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + AlterRanking.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AlertRanking.TABLE_NAME);
         onCreate(db);
         Log.i("onUpgrade", " onUpgrade is called");
     }

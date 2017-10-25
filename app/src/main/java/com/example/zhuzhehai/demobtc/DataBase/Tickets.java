@@ -13,11 +13,11 @@ public class Tickets {
         //column info
         public static final String T_ID = "id";
         public static final String TIMESTAMP = "timestamp";
-//        public static final String T_ask = "ask";
-//        public static final String T_bid= "bid";
         public static final String T_last= "last";
 //        public static final String T_high= "high";
 //        public static final String T_low= "low";
+//        public static final String T_ask = "ask";
+//        public static final String T_bid= "bid";
 
 
         //create table
