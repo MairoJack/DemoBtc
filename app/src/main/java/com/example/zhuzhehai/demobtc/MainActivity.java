@@ -42,24 +42,40 @@ public class MainActivity extends AppCompatActivity {
 
     BitconInfo Bcon;
     SQLiteDatabase db;
-    @BindView(R.id.day) TextView day;
-    @BindView(R.id.todayOpen) TextView todayOpen;
-    @BindView(R.id.todayRate) TextView todayRate;
-    @BindView(R.id.todayHigh) TextView todayHigh;
-    @BindView(R.id.todayLow) TextView todayLow;
-    @BindView(R.id.todayAverage) TextView todayAverage;
-    @BindView(R.id.currentPrice) TextView currentPrice;
-    @BindView(R.id.currentTime) TextView currentTime;
-    @BindView(R.id.fiveMints) TextView fiveMints;
-    @BindView(R.id.thirtyMints) TextView thirtyMints;
-    @BindView(R.id.sixtyMints) TextView sixtyMints;
-    @BindView(R.id.currentAsk) TextView currentAsk;
-    @BindView(R.id.currentBid) TextView currentBid;
+    @BindView(R.id.day)
+    TextView day;
+    @BindView(R.id.todayOpen)
+    TextView todayOpen;
+    @BindView(R.id.todayRate)
+    TextView todayRate;
+    @BindView(R.id.todayHigh)
+    TextView todayHigh;
+    @BindView(R.id.todayLow)
+    TextView todayLow;
+    @BindView(R.id.todayAverage)
+    TextView todayAverage;
+    @BindView(R.id.currentPrice)
+    TextView currentPrice;
+    @BindView(R.id.currentTime)
+    TextView currentTime;
+    @BindView(R.id.fiveMints)
+    TextView fiveMints;
+    @BindView(R.id.thirtyMints)
+    TextView thirtyMints;
+    @BindView(R.id.sixtyMints)
+    TextView sixtyMints;
+    @BindView(R.id.currentAsk)
+    TextView currentAsk;
+    @BindView(R.id.currentBid)
+    TextView currentBid;
 
 
-    @BindView(R.id.alertRanking) Button rankingButton;
-    @BindView(R.id.graph) TextView graphButton;
-    @BindView(R.id.news) TextView newsButton;
+    @BindView(R.id.alertRanking)
+    Button rankingButton;
+    @BindView(R.id.graph)
+    TextView graphButton;
+    @BindView(R.id.news)
+    TextView newsButton;
 
 
     @Override
@@ -68,13 +84,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-//        fakeRankingData();
+        fakeRankingData();
 
         rankingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AlertRanking.class);
                 startActivityForResult(intent, REQ_CODE_RANKING);
+            }
+        });
+
+        graphButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PriceDiagramActivity.class);
+                startActivity(intent);
             }
         });
 //
@@ -110,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         values.put("last", 7463);
         values.put("change", -0.022 + "");
         db.insert("AlertRanking", "", values);
-         values = new ContentValues();
+        values = new ContentValues();
         values.put("timestamp", "2017-10-09 15:22");
         values.put("last", 4238);
         values.put("change", -0.333 + "");
@@ -132,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(BitconInfo result) {
             db = new DB(MainActivity.this).getWritableDatabase();
@@ -154,16 +179,17 @@ public class MainActivity extends AppCompatActivity {
             showData(result, percent);
             saveData("Tickets", result, 0.0);
         }
+
         public void showData(BitconInfo bit, double[] percent) {
             String today = bit.display_timestamp;
             Log.v("Today", today);
-            day.setText (today.substring(0,10));
+            day.setText(today.substring(0, 10));
             String open = bit.open.day;
             todayOpen.setText(open);
             String current = bit.last;
             Double rate = (Double.parseDouble(current) - Double.parseDouble(open)) / Double.parseDouble(current);
             DecimalFormat df = new DecimalFormat("#.####");
-            todayRate.setText(df.format(rate*100) + "%");
+            todayRate.setText(df.format(rate * 100) + "%");
             checkColor(todayRate, rate);
             todayHigh.setText(bit.high);
             todayLow.setText(bit.low);
@@ -179,13 +205,15 @@ public class MainActivity extends AppCompatActivity {
             currentAsk.setText(bit.ask);
             currentBid.setText(bit.bid);
         }
+
         public void checkColor(TextView view, Double num) {
             if (num > 0) {
-                view.setTextColor(getColor(R.color.colorIncrease));
+                //  view.setTextColor(getColor(R.color.colorIncrease));
             } else {
-                view.setTextColor(getColor(R.color.colorDecrease));
+                //  view.setTextColor(getColor(R.color.colorDecrease));
             }
         }
+
         public void saveData(String tableName, BitconInfo result, Double d) {
             ContentValues values = new ContentValues();
             values.put("last", result.last);
@@ -197,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
             }
             db.insert(tableName, "", values);
         }
+
         public double calculateDecPercent(Double currentTime, int timeRange, Double currentPrice) {
             Double start = currentTime - timeRange;
             BigDecimal bdecimal = new BigDecimal(start);
@@ -213,7 +242,8 @@ public class MainActivity extends AppCompatActivity {
             Log.v("percent  = ", percent + "");
             return percent;
         }
-        public void showAlert(Double decreasing, String describe){
+
+        public void showAlert(Double decreasing, String describe) {
             decreasing *= 100;
             DecimalFormat df = new DecimalFormat("#.####");
             new AlertDialog.Builder(MainActivity.this)
